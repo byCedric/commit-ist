@@ -10,6 +10,10 @@
 		"serve": "next start"
 	},
 	"dependencies": {
+		"@commitlint/lint": "^8.1.0",
+		"@commitlint/parse": "^8.1.0",
+		"apollo-server-micro": "^2.9.3",
+		"lodash": "^4.17.15",
 		"next": "^9.0.5",
 		"react": "^16.9.0",
 		"react-dom": "^16.9.0"
@@ -20,10 +24,12 @@
 		"@commitlint/config-conventional": "^8.1.0",
 		"@testing-library/react": "^9.1.4",
 		"@types/jest": "^24.0.18",
+		"@types/lodash": "^4.14.138",
 		"@types/node": "^12.7.5",
 		"@types/react": "^16.9.2",
 		"@typescript-eslint/eslint-plugin": "^2.2.0",
 		"@typescript-eslint/parser": "^2.2.0",
+		"apollo-server-testing": "^2.9.3",
 		"babel-jest": "^24.9.0",
 		"eslint": "^6.4.0",
 		"eslint-plugin-jest": "^22.17.0",
