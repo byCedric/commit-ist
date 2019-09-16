@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import React from 'react';
-import Nav from './nav';
+import { Nav } from './nav';
 
 test('renders zeit link', async () => {
 	const { findByText } = render(<Nav />);

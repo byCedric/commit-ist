@@ -6,7 +6,7 @@ const links = [
 	{ href: 'https://github.com/zeit/next.js', label: 'GitHub' }
 ];
 
-const Nav: React.SFC = () => (
+export const Nav: React.SFC = () => (
 	<nav>
 		<ul>
 			<li>
@@ -48,6 +48,4 @@ const Nav: React.SFC = () => (
 			}
 		`}</style>
 	</nav>
-)
-
-export default Nav
+);
