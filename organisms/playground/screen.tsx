@@ -9,6 +9,12 @@ const rules: LintRule[] = [
 		when: 'always',
 		value: ['feat', 'fix'],
 	},
+	{
+		name: 'header-min-length',
+		level: 1,
+		when: 'always',
+		value: 20,
+	}
 ];
 
 export const PlaygroundScreen: React.SFC = () => {
@@ -17,10 +23,12 @@ export const PlaygroundScreen: React.SFC = () => {
 	return (
 		<div>
 			<CommitEditor
-				commit={api.data ? api.data.parse : undefined}
+				lintedCommit={api.data ? api.data.lintCommit : undefined}
+				parsedCommit={api.data ? api.data.parseCommit : undefined}
 				onCommitChange={commit => api.refetchDebounced({ commit, rules })}
 				onCommitClick={(type, content) => console.log('clicked', type, content)}
 			/>
+			<br /><br />
 			<code style={{ whiteSpace: 'pre' }}>
 				{JSON.stringify(api.data, null, 2)}
 			</code>
