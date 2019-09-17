@@ -10,7 +10,7 @@ export const typeDefs = gql`
 	scalar LintRuleValue
 
 	extend type Query {
-		lint(commit: String, rules: [LintRule!]): LintedCommit
+		lintCommit(commit: String, rules: [LintRule!]): LintedCommit
 	}
 
 	input LintRule {
@@ -51,7 +51,7 @@ export const resolvers = {
 		serialize: value => value,
 	}),
 	Query: {
-		lint: async (root: never, input: LintInput) => {
+		lintCommit: async (root: never, input: LintInput) => {
 			const rules = transform(input.rules || [], (config, rule) => {
 				config[rule.name] = [rule.level, rule.when, rule.value];
 			});
@@ -73,7 +73,9 @@ export interface LintInput {
 
 export interface LintInputRule {
 	name: string;
-	level: number;
+	level: 1 | 2;
 	when: 'always' | 'never';
-	value?: any;
+	value?: LintInputRuleValue | LintInputRuleValue[];
 }
+
+export type LintInputRuleValue = string | number;

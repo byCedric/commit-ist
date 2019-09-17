@@ -8,7 +8,7 @@ const query = (commit: string, rules: LintInputRule[]) => (
 		variables: { commit, rules },
 		query: gql`
 			query($commit: String, $rules: [LintRule!]) {
-				lint(commit: $commit, rules: $rules) {
+				lintCommit(commit: $commit, rules: $rules) {
 					valid
 					input
 					warnings {
@@ -28,10 +28,10 @@ const query = (commit: string, rules: LintInputRule[]) => (
 );
 
 test('lints empty commit', async () => {
-	const { data, errors } = await query('', []);
+	const { data } = await query('', []);
 
 	expect(data).toMatchObject({
-		lint: null,
+		lintCommit: null,
 	});
 });
 
@@ -39,7 +39,7 @@ test('lints commit without rules', async () => {
 	const { data } = await query('feat: this is a nice feature', []);
 
 	expect(data).toMatchObject({
-		lint: {
+		lintCommit: {
 			valid: true,
 			input: 'feat: this is a nice feature',
 			warnings: [],
@@ -57,7 +57,7 @@ test('lints commit with header-max-length error rule', async () => {
 	}]);
 
 	expect(data).toMatchObject({
-		lint: {
+		lintCommit: {
 			valid: false,
 			input: 'feat: this is a nice feature',
 			warnings: [],
@@ -79,7 +79,7 @@ test('lints commit with type-enum warning rule', async () => {
 	}]);
 
 	expect(data).toMatchObject({
-		lint: {
+		lintCommit: {
 			valid: true,
 			input: 'docs: clarify something',
 			warnings: [{
@@ -109,7 +109,7 @@ test('lints commit with scope-enum and scope-case rules', async () => {
 	]);
 
 	expect(data).toMatchObject({
-		lint: {
+		lintCommit: {
 			valid: false,
 			input: 'fix(Rule): make sure all rules are available',
 			warnings: [{

@@ -3,7 +3,7 @@ import { LintedCommit, LintRule, ParsedCommit } from './types';
 
 export const QUERY = gql`
 	query($commit: String!, $rules: [LintRule!]!) {
-		lint(commit: $commit, rules: $rules) {
+		lintCommit(commit: $commit, rules: $rules) {
 			valid
 			input
 			warnings {
@@ -17,7 +17,7 @@ export const QUERY = gql`
 				message
 			}
 		}
-		parse(commit: $commit) {
+		parseCommit(commit: $commit) {
 			raw
 			header
 			type
@@ -48,6 +48,6 @@ export interface QueryVariables {
 }
 
 export interface QueryData {
-	lint: LintedCommit;
-	parse: ParsedCommit;
+	lintCommit: LintedCommit;
+	parseCommit: ParsedCommit;
 }

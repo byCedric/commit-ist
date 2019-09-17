@@ -6,7 +6,7 @@ import parser from '@commitlint/parse';
  */
 export const typeDefs = gql`
 	extend type Query {
-		parse(commit: String!): ParsedCommit
+		parseCommit(commit: String!): ParsedCommit
 	}
 
 	type ParsedCommit {
@@ -42,7 +42,7 @@ export const typeDefs = gql`
  */
 export const resolvers = {
 	Query: {
-		parse: async (root: never, input: { commit: string }) => {
+		parseCommit: async (root: never, input: { commit: string }) => {
 			try {
 				return await parser(input.commit);
 			} catch {
