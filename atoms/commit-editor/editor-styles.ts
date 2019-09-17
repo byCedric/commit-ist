@@ -5,20 +5,24 @@ export const CommitEditorStyles = createGlobalStyle`
 		font-family: 'Open Sans';
 		white-space: pre;
 
-		div {
-			display: inline;
-		}
-
-		.commit-type {
+		.commit-structure--type {
 			font-weight: bold;
 		}
 
-		.commit-subject {
+		.commit-structure--subject {
 			font-style: italic;
 		}
 
-		.commit-footer {
+		.commit-structure--footer {
 			text-decoration: underline;
+		}
+
+		.commit-lint--warning {
+			color: green;
+		}
+
+		.commit-lint--error {
+			color: red;
 		}
 	}
 `;

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import ContentEditable, { ContentEditableEvent } from 'react-contenteditable';
 import memoize from 'memoize-one';
-import { ParsedCommit } from '../commit-hook';
+import { LintedCommit, ParsedCommit } from '../commit-hook';
 import { CommitEditorStyles } from './editor-styles';
 import { renderCommit } from './editor-commit-render';
 
@@ -15,12 +15,16 @@ export class CommitEditor extends PureComponent<CommitEditorProps> {
 	/**
 	 * Invoked when the content of the editor is changed.
 	 * This detects if anything is provided, if so it calls `onCommitChange`.
+	 * It's debounced to prevent issues when rerendering fast with mixed up html.
 	 */
 	onChange = (event: ContentEditableEvent) => {
-		if (event.currentTarget.innerText.trim()) {
-			this.props.onCommitChange(event.currentTarget.innerText);
+		const { onCommitChange } = this.props;
+		const { innerText } = event.currentTarget;
+
+		if (onCommitChange && innerText.trim()) {
+			onCommitChange(innerText)
 		}
-	}
+	};
 
 	/**
 	 * Invoked when the content of the editor is clicked.
@@ -41,7 +45,10 @@ export class CommitEditor extends PureComponent<CommitEditorProps> {
 	 * we have to use simple elements as fallback.
 	 */
 	render() {
-		const commitParsed = this.props.commit;
+		const { lintedCommit, parsedCommit } = this.props;
+		const html = parsedCommit ? this.renderCommit(parsedCommit, lintedCommit) : '';
+
+		console.log({ html });
 
 		return (
 			<div>
@@ -50,7 +57,7 @@ export class CommitEditor extends PureComponent<CommitEditorProps> {
 					data-gramm_editor='false'
 					className='commit-editor'
 					spellCheck={false}
-					html={commitParsed ? this.renderCommit(commitParsed) : ''}
+					html={html}
 					onChange={this.onChange}
 					onClick={this.onClick}
 				/>
@@ -60,7 +67,8 @@ export class CommitEditor extends PureComponent<CommitEditorProps> {
 }
 
 export interface CommitEditorProps {
-	commit?: ParsedCommit;
-	onCommitChange: (commit: string) => any;
-	onCommitClick: (type: string, content: string) => any;
+	lintedCommit?: LintedCommit;
+	parsedCommit?: ParsedCommit;
+	onCommitChange?: (commit: string) => any;
+	onCommitClick?: (type: string, content: string) => any;
 }
