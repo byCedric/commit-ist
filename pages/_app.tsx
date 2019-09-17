@@ -1,9 +1,10 @@
-import ApolloClient, { InMemoryCache } from 'apollo-boost';
+import React from 'react';
+import ApolloClient, { InMemoryCache, ApolloClient as ApolloClientType } from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 import App from 'next/app';
 import withApollo from 'next-with-apollo';
 
-class CommitistApp extends App<any> {
+class CommitistApp extends App<{ apollo: ApolloClientType<InMemoryCache> }> {
 	render() {
 		const { Component, pageProps, apollo } = this.props;
 

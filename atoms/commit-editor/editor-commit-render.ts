@@ -13,7 +13,7 @@ export const renderCommit: CommitRenderer = (commit) => {
 		return undefined;
 	}
 
-	let rendered = structureOrder.reduce(
+	const rendered = structureOrder.reduce(
 		(rendered, structure) => (
 			rendered.replace(
 				commit[structure],
