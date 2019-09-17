@@ -4,7 +4,7 @@
 	"version": "0.0.0",
 	"scripts": {
 		"test": "jest",
-		"lint": "tsc && eslint . --ext ts,tsx,js",
+		"lint": "tsc && eslint api atoms molecules organisms pages --ext ts,tsx,js",
 		"start": "next",
 		"build": "next build",
 		"serve": "next start"
