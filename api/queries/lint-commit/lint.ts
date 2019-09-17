@@ -37,6 +37,7 @@ export const typeDefs = gql`
 		level: Int!
 		name: String!
 		message: String!
+		structure: String!
 	}
 `;
 
@@ -56,8 +57,19 @@ export const resolvers = {
 				config[rule.name] = [rule.level, rule.when, rule.value];
 			});
 
+			const addStructure = (violation: { name: string }) => ({
+				...violation,
+				structure: violation.name.split('-')[0],
+			});
+
 			try {
-				return await lint(input.commit, rules);
+				const report = await lint(input.commit, rules);
+
+				// note: we need this in the front end to "highlight" problematic structures
+				report.errors = report.errors.map(addStructure);
+				report.warnings = report.warnings.map(addStructure);
+
+				return report;
 			} catch {
 				return null;
 			}

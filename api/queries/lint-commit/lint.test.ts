@@ -15,11 +15,13 @@ const query = (commit: string, rules: LintInputRule[]) => (
 						valid
 						name
 						message
+						structure
 					}
 					errors {
 						valid
 						name
 						message
+						structure
 					}
 				}
 			}
@@ -65,6 +67,7 @@ test('lints commit with header-max-length error rule', async () => {
 				valid: false,
 				name: 'header-max-length',
 				message: 'header must not be longer than 5 characters, current length is 28',
+				structure: 'header',
 			}],
 		},
 	});
@@ -86,6 +89,7 @@ test('lints commit with type-enum warning rule', async () => {
 				valid: false,
 				name: 'type-enum',
 				message: 'type must be one of [feature, fix]',
+				structure: 'type',
 			}],
 			errors: [],
 		},
@@ -116,11 +120,13 @@ test('lints commit with scope-enum and scope-case rules', async () => {
 				valid: false,
 				name: 'scope-case',
 				message: 'scope must be lowercase',
+				structure: 'scope',
 			}],
 			errors: [{
 				valid: false,
 				name: 'scope-enum',
 				message: 'scope must be one of [core]',
+				structure: 'scope',
 			}],
 		}
 	});
