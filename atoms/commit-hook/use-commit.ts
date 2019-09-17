@@ -17,8 +17,6 @@ export function useCommit(
 	const graphql = useQuery<QueryData, QueryVariables>(QUERY, options);
 	const [refetchDebounced] = useDebouncedCallback(graphql.refetch, typeof window === 'undefined' ? 0 : 500);
 
-	console.log('GRPAHQ:', graphql.data ? graphql.data.parse : undefined);
-
 	return {
 		...graphql,
 		refetchDebounced,

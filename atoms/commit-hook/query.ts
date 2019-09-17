@@ -10,11 +10,13 @@ export const QUERY = gql`
 				valid
 				name
 				message
+				structure
 			}
 			errors {
 				valid
 				name
 				message
+				structure
 			}
 		}
 		parseCommit(commit: $commit) {

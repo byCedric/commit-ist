@@ -25,4 +25,5 @@ export interface LintedCommitIssue {
 	valid: boolean;
 	level: LintRuleLevel;
 	message: string;
+	structure: string;
 }
