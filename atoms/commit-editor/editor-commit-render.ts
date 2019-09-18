@@ -61,8 +61,8 @@ function renderCommitHeader(parsed: ParsedCommit, linted?: LintedCommit) {
 function renderStructure(type: string, content: string, linted?: LintedCommit) {
 	if (content) {
 		const className = classNames(`commit-structure commit-structure--${type}`, {
-			'commit-lint--warning': linted && linted.warnings.find(issue => issue.structure === type),
-			'commit-lint--error': linted && linted.errors.find(issue => issue.structure === type),
+			'commit-structure--lint-warning': linted && linted.warnings.find(issue => issue.structure === type),
+			'commit-structure--lint-error': linted && linted.errors.find(issue => issue.structure === type),
 		});
 
 		return `<span class="${className}" data-structure="${type}">${content}</span>`;

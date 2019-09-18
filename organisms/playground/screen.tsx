@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { CommitEditor } from '../../atoms/commit-editor';
 import { LintRule, useCommit } from '../../atoms/commit-hook';
 
@@ -10,15 +10,22 @@ const rules: LintRule[] = [
 		value: ['feat', 'fix'],
 	},
 	{
-		name: 'header-min-length',
+		name: 'subject-min-length',
 		level: 1,
 		when: 'always',
 		value: 20,
+	},
+	{
+		name: 'scope-enum',
+		level: 2,
+		when: 'always',
+		value: ['editor'],
 	}
 ];
 
 export const PlaygroundScreen: React.SFC = () => {
-	const api = useCommit('feat: add commit editor', rules);
+	const api = useCommit('feat(editor): add commit editor styles', rules);
+	const [focus, setFocus] = useState<string>();
 
 	return (
 		<div>
@@ -26,7 +33,9 @@ export const PlaygroundScreen: React.SFC = () => {
 				lintedCommit={api.data ? api.data.lintCommit : undefined}
 				parsedCommit={api.data ? api.data.parseCommit : undefined}
 				onCommitChange={commit => api.refetchDebounced({ commit, rules })}
-				onCommitClick={(type, content) => console.log('clicked', type, content)}
+				onStructureClick={setFocus}
+				focusStructure={focus}
+				onBlur={() => setFocus(undefined)}
 			/>
 			<br /><br />
 			<code style={{ whiteSpace: 'pre' }}>
